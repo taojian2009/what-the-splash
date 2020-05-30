@@ -15,10 +15,16 @@ function* workerSaga() {
 }
 
 
+function* byebyeSaga() {
+    console.log('bye bye saga')
+}
+
 // watcher sage
 function* rootSage() {
-    console.log('hey there ')
-    yield takeEvery('HELLO', workerSaga)
+    yield take('LOGIN')
+    yield call(workerSaga)
+    yield take('LOGOUT')
+    yield call(byebyeSaga)
 }
 
 // watcher saga => listen to actions => worker saga
