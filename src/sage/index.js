@@ -1,36 +1,24 @@
 import {call, take, takeEvery, put} from 'redux-saga/effects'
+import {IMAGES} from "../constants";
 
 // worker sage
-
-function* workerSaga() {
-    console.log('worker, hello')
-    console.log(put({type: "ACTION_FROM_WORKER", payload: {
-            loginUser: {
-                userName: 'zhang3',
-                id: 12,
-                age: 29
-            }
-        }}));
-    yield put({type: "ACTION_FROM_WORKER1"})
+function* handleImagesLoad() {
+    console.log('fetching images from web')
 }
 
 
-function* byebyeSaga() {
-    console.log('bye bye saga')
+function* handleDang() {
+    console.log("DANG")
 }
 
 // watcher sage
 function* rootSage() {
-    yield take('LOGIN')
-    yield call(workerSaga)
-    yield take('LOGOUT')
-    yield call(byebyeSaga)
+    yield take(IMAGES.LOAD)
+    yield call(handleImagesLoad)
+    // NOTE: takeEvery is not blocking, which means the watchers are running in parallel.
+    yield takeEvery("DANG", handleDang)
 }
 
-// watcher saga => listen to actions => worker saga
-
-
-
-
+// watcher saga watches actions dispatched, and then pass it to worker saga.
 
 export default rootSage;

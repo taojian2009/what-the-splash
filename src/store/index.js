@@ -10,9 +10,7 @@ const configureStore = () => {
         applyMiddleware(sagaMiddleware)
     )
     sagaMiddleware.run(rootSage)
-    store.dispatch({type: 'LOGIN'})
-    // LOGOUT BEFORE LOGIN DOES NOT MAKE SENSE.
-    store.dispatch({type: 'LOGOUT'})
+    store.dispatch({type: 'DANG'})
     return store
 }
 
