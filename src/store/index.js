@@ -1,13 +1,18 @@
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import rootReducer from "../reducers";
-
+import createSageMiddleware from 'redux-saga'
+import rootSage from "../sage";
 
 const configureStore = () => {
+    const sagaMiddleware = createSageMiddleware()
     const store = createStore(
         rootReducer,
-        window.__REDUX_DEVTOOLs_EXTENSION__ &&
-            window.__REDUX_DEVTOOLs_EXTENSION__()
+        applyMiddleware(sagaMiddleware)
     )
+    sagaMiddleware.run(rootSage)
+    store.dispatch({
+        type: 'HELLO'
+    })
     return store
 }
 
