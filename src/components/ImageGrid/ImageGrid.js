@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import {connect} from "react-redux";
 
 import './styles.css';
+import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
+import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
 
 const key = '5f96323678d05ff0c4eb264ef184556868e303b32a2db88ecbf15746e6f25e02';
 
@@ -43,4 +46,15 @@ class ImageGrid extends Component {
     }
 }
 
-export default ImageGrid;
+const mapStateToProps = ({isLoading, images, errors}) =>({
+    isLoading,
+    images,
+    errors,
+})
+
+
+
+export default connect(
+    mapStateToProps,
+    null,
+)(ImageGrid);
